@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "11cea439-ecd9-4c9b-943d-c5b847d2e08e",
+		"name": "Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21834775"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tauheed Butt\",\r\n    \"email\": \"tauheedbutt@gmail.com\",\r\n    \"password\": \"Admin.123\",\r\n    \"confirmPassword\": \"Admin.123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/signup",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"tauheedbutt@gmail.com\",\r\n    \"password\": \"Admin.123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/login",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{USER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{SERVER_URL}}/users",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{USER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{SERVER_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{USER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Tauheed Butt\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete by ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{USER_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{SERVER_URL}}/users/{{USER_ID}}",
+					"host": [
+						"{{SERVER_URL}}"
+					],
+					"path": [
+						"users",
+						"{{USER_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
