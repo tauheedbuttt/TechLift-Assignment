@@ -13,8 +13,7 @@ const findComment = async (_id, postID, user) => {
 
 router.get('/posts/:postID/comments', requireAuth, async (req,res)=>{
   const {postID} = req.params;
-  let { page, limit, fields } = req.query;
-  const { filter } = req.body; // {body}
+  let { page, limit, fields, body } = req.query;
   // default page and limits
   page = !page ? 0 : parseInt(page);
   limit = !limit ? 10 : parseInt(limit);
@@ -24,7 +23,7 @@ router.get('/posts/:postID/comments', requireAuth, async (req,res)=>{
   try{
     const comments = await Comment.find({
         postID,
-      ...(filter?.body ? {body: {$regex: filter?.body}} : {}),
+        ...(body ? {body: {$regex: body}} : {}),
       })
       .select(JSON.parse(fields))
       .populate('user','name -_id','User')
