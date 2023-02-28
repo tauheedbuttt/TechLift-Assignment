@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 
-const User = mongoose.model('User');
 const Post = mongoose.model('Post');
-const Comment = mongoose.model('Comment');
 
 const requireAuth = require('../middleware/requireAuth');
 const router = express.Router()
