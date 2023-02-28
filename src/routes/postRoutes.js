@@ -32,16 +32,20 @@ router.post('/posts', requireAuth, async (req,res)=>{
 
 router.get('/posts', requireAuth, async (req,res)=>{
   let { page, limit, fields } = req.query;
+  const { filter } = req.body; // {title, body}
   // default page and limits
-  page = !page ? 0 : parseInt(page);
+  page = !page ? 0 : parseInt(page)-1;
   limit = !limit ? 10 : parseInt(limit);
 
   try{
-    const posts = await Post.find()
+    const posts = await Post.find({
+      ...(filter?.title ? {title: {$regex: filter?.title}} : {}),
+      ...(filter?.body ? {body: {$regex: filter?.body}} : {}),
+      })
       .populate('user','name -_id','User')
       .select(JSON.parse(fields))
       .limit(limit)
-      .skip((page-1) * limit)
+      .skip(page * limit)
       .sort({dateCreated: -1})
     
     res.send({
@@ -90,6 +94,7 @@ router.delete('/posts/:postID', requireAuth, async (req,res)=>{
 })
 
 router.get('/posts/:postID', requireAuth, async (req,res)=>{
+
   const {postID} = req.params;
 
   if(!postID) return res.status(404).send({message: 'postID is missing'})
@@ -103,7 +108,6 @@ router.get('/posts/:postID', requireAuth, async (req,res)=>{
 
     const post = await Post.findById(postID)
       .populate('user','name -_id','User')
-    // res.send(post)
     res.send({...post._doc, comments})
     
   }catch(err){
