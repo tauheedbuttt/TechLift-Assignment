@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  userID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   title: String,
-  body: String
+  body: String,
+  dateCreated: Number,
+  comments:[{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
 });
 
 mongoose.model('Post', postSchema)
