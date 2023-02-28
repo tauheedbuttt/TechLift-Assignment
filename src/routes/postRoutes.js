@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const express = require('express')
 
 const Post = mongoose.model('Post');
+const Comment = mongoose.model('Comment');
 
 const requireAuth = require('../middleware/requireAuth');
 const router = express.Router()
@@ -95,18 +96,15 @@ router.get('/posts/:postID', requireAuth, async (req,res)=>{
 
   try{
     await findPost(postID, req.user.id);
-    
+    const comments = await Comment.find({postID})
+      .select('body user id, dateCreated')
+      .sort({dateCreated: -1})
+      .populate('user','name -_id','User')
+
     const post = await Post.findById(postID)
       .populate('user','name -_id','User')
-      .populate({
-        path: 'comments',
-        populate: {
-          path: "user" // in blogs, populate comments
-        },
-        match: 'postID',
-        model: 'Post'
-      })
-    res.send(post)
+    // res.send(post)
+    res.send({...post._doc, comments})
     
   }catch(err){
     res.status(404).send({message: err.message});
