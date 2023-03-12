@@ -8,12 +8,14 @@ const bodyParser = require('body-parser')
 require('./src/models/User')
 require('./src/models/Post')
 require('./src/models/Comment')
+require('./src/models/Toll')
 
 // routes
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const postRoutes = require('./src/routes/postRoutes');
 const commentRoutes = require('./src/routes/commentRoutes');
+const tollRoutes = require('./src/routes/tollRoutes');
 
 const app = express()
 const port = process.env.PORT
@@ -35,6 +37,7 @@ mongoose.connection.on('error', (error) => {
 app.use(cors())
 app.use(bodyParser.json())
 app.use(authRoutes)
+app.use(tollRoutes)
 // app.use(userRoutes)
 // app.use(postRoutes)
 // app.use(commentRoutes)
