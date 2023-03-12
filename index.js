@@ -10,10 +10,10 @@ require('./src/models/Post')
 require('./src/models/Comment')
 
 // routes
-const authRoutes = require('./src/routes/authRoutes'); 
-const userRoutes = require('./src/routes/userRoutes'); 
-const postRoutes = require('./src/routes/postRoutes'); 
-const commentRoutes = require('./src/routes/commentRoutes'); 
+const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const postRoutes = require('./src/routes/postRoutes');
+const commentRoutes = require('./src/routes/commentRoutes');
 
 const app = express()
 const port = process.env.PORT
@@ -35,12 +35,12 @@ mongoose.connection.on('error', (error) => {
 app.use(cors())
 app.use(bodyParser.json())
 app.use(authRoutes)
-app.use(userRoutes)
-app.use(postRoutes)
-app.use(commentRoutes)
+// app.use(userRoutes)
+// app.use(postRoutes)
+// app.use(commentRoutes)
 
-app.get('/',(req,res)=>res.send('Home'))
+app.get('/', (req, res) => res.send('Home'))
 
-app.listen(port, ()=>{
-  console.log(`Listening on https://localhost:${port}`);
+app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
 })
