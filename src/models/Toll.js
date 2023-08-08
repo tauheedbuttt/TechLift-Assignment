@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const tollSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    },
     entryPoint: String,
     exitPoint: String,
     day: Number,

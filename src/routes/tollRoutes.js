@@ -13,6 +13,7 @@ router.get('/tolls', requireAuth, async (req, res) => {
     limit = !limit ? 10 : parseInt(limit);
     try {
         const tolls = await Toll.find({
+            user: req.user,
             ...(numberPlate ? { numberPlate: { $regex: numberPlate } } : {}),
         })
             .select(fields ? JSON.parse(fields) : [])
@@ -57,11 +58,11 @@ router.post('/entry', requireAuth, async (req, res) => {
 
         try {
             // check if toll for current vehicle already exists
-            const exists = await Toll.findOne({ numberPlate });
+            const exists = await Toll.findOne({ numberPlate, user: req.user });
             if (exists && !exists?.exitPoint) return error(res, 'toll entry has already been made for specified car')
 
             // create new entry and store it
-            const toll = new Toll({ entryPoint, day, numberPlate });
+            const toll = new Toll({ entryPoint, day, numberPlate, user: req.user });
             toll.save();
             res.send(toll)
         } catch (err) {
