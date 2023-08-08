@@ -32,16 +32,16 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
 
-  if (!name) error(res, 'name is required');
-  if (!email) error(res, 'email is required');
-  if (!password) error(res, 'password is required');
-  if (!confirmPassword) error(res, 'confirmPassword is required');
+  if (!name) return error(res, 'name is required');
+  if (!email) return error(res, 'email is required');
+  if (!password) return error(res, 'password is required');
+  if (!confirmPassword) return error(res, 'confirmPassword is required');
 
-  if (confirmPassword != password) error(res, 'confirmPassword is not same as password');
+  if (confirmPassword != password) return error(res, 'confirmPassword is not same as password');
 
   // check if email already exists
   const exists = await User.findOne({ email })
-  if (exists) error(res, 'Account with this email already exists')
+  if (exists) return error(res, 'Account with this email already exists')
 
   // create user
   const hashed = await bcrypt.hash(password, 10);
