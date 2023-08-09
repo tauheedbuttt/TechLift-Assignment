@@ -33,8 +33,12 @@ mongoose.connection.on('error', (error) => {
   console.error('Error connecting to Mongo instance', error)
 })
 
-
-app.use(cors())
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+);
 app.use(bodyParser.json())
 app.use(authRoutes)
 app.use(tollRoutes)
