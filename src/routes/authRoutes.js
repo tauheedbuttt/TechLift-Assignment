@@ -11,6 +11,7 @@ const router = express()
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  console.log({ email, password })
 
   if (!email) return error(res, 'email is required');
   if (!password) return error(res, 'password is required');
@@ -31,6 +32,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
+  console.log({ name, email, password, confirmPassword })
 
   if (!name) return error(res, 'name is required');
   if (!email) return error(res, 'email is required');
