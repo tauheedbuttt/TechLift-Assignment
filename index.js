@@ -1,6 +1,7 @@
 require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
+const helmet = require('helmet')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
@@ -33,6 +34,7 @@ mongoose.connection.on('error', (error) => {
   console.error('Error connecting to Mongo instance', error)
 })
 
+app.use(helmet());
 app.use(
   cors({
     origin: '*',
